@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["DeserializationError",""],["InventoryType",""]],"struct":[["Block",""],["BlockHeader",""],["CoinbaseInput",""],["CompactInt",""],["EncapsulatedAddr",""],["InventoryData",""],["Nbits",""],["Transaction",""],["TxInput",""],["TxOutpoint",""],["TxOutput",""],["u256",""]],"trait":[["Deserializable",""],["Serializable",""]]});

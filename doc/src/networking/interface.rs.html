@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `networking/src/interface.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>interface.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../networking/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
+<span id="2"> 2</span>
+<span id="3"> 3</span>
+<span id="4"> 4</span>
+<span id="5"> 5</span>
+<span id="6"> 6</span>
+<span id="7"> 7</span>
+<span id="8"> 8</span>
+<span id="9"> 9</span>
+<span id="10">10</span>
+<span id="11">11</span>
+<span id="12">12</span>
+<span id="13">13</span>
+<span id="14">14</span>
+<span id="15">15</span>
+<span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
+<span id="21">21</span>
+<span id="22">22</span>
+<span id="23">23</span>
+<span id="24">24</span>
+<span id="25">25</span>
+<span id="26">26</span>
+<span id="27">27</span>
+<span id="28">28</span>
+<span id="29">29</span>
+<span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+</pre><div class="example-wrap"><pre class="rust ">
+<span class="kw">use</span> <span class="ident">shared</span>::{<span class="ident">u256</span>, <span class="ident">Block</span>, <span class="ident">BlockHeader</span>, <span class="ident">EncapsulatedAddr</span>, <span class="ident">Transaction</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashSet</span>;
+<span class="doccomment">/// NetworkRequest provides the inbound interface to the high level &#39;the rest of the network&#39; abstraction.</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NetworkRequest</span> {
+    <span class="doccomment">/// Requests peer information</span>
+    <span class="ident">Peers</span>,
+    <span class="doccomment">/// Requests all blocks with provided hashes</span>
+    <span class="ident">BlocksByHash</span>(<span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// Requests all transactions with provided hashes</span>
+    <span class="ident">TransactionsByHash</span>(<span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// Requests headers starting with the first header in the vec. If max_responses is not provided, the Service will attempt to return every header up to the current tip.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// last_known_headers should be ordered from newest to oldest (i.e. from now toward Genesis block) if it contains more than one item</span>
+    <span class="ident">Headers</span> {
+        <span class="ident">last_known_headers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>,
+        <span class="ident">max_responses</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>,
+    },
+    <span class="doccomment">/// Pushes a transaction to the network using unsolicited Tx Message</span>
+    <span class="ident">PushTransaction</span>(<span class="ident">Transaction</span>),
+    <span class="doccomment">/// Advertises to peers that each transaction is available using an inv message containing the Tx Hash.</span>
+    <span class="ident">AdvertiseTransactions</span>(<span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// Advertises to peers that a block is available using an inv message containing its hash</span>
+    <span class="ident">AdvertiseBlock</span>(<span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// Request a peer&#39;s view of the mempool. By default, the Service should aggregate responses from a small subset of peers.</span>
+    <span class="ident">Mempool</span>,
+}
+
+<span class="doccomment">/// NetworkResponse provides the possible responses of the &#39;rest of the network&#39; abstraction to a [&#39;NetworkRequest&#39;](crate::NetworkRequest)</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">NetworkResponse</span> {
+    <span class="comment">// Returns a list of encapsulated addresses.</span>
+    <span class="ident">Peers</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">EncapsulatedAddr</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// Success announces that the request completed succesfully but did not need to return any data</span>
+    <span class="doccomment">/// Used in response to Advertise Requests</span>
+    <span class="ident">Success</span>,
+    <span class="doccomment">/// A list of blocks</span>
+    <span class="ident">Blocks</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Block</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// A list of Headers</span>
+    <span class="ident">Headers</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">BlockHeader</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// A list of Transactions</span>
+    <span class="ident">Transactions</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Transaction</span><span class="op">&gt;</span>),
+}
+</pre></div>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "networking";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
