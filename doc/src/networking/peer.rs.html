@@ -179,6 +179,8 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">command</span>::<span class="ident">Command</span>, <span class="ident">BitcoinCodec</span>, <span class="ident">Message</span>};
 <span class="kw">use</span> <span class="ident">config</span>::<span class="ident">Config</span>;
@@ -203,6 +205,7 @@
     <span class="ident">Deserialzation</span>(<span class="ident">DeserializationError</span>),
     <span class="ident">Message</span>(<span class="ident">String</span>),
     <span class="ident">Malicious</span>(<span class="ident">String</span>),
+    <span class="ident">Unexpected</span>(<span class="ident">String</span>),
     <span class="ident">ConnectionClosed</span>,
 }
 <span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">DeserializationError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">PeerError</span> {
@@ -230,6 +233,7 @@
             <span class="ident">PeerError</span>::<span class="ident">Message</span>(<span class="ident">cause</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">cause</span>.<span class="ident">fmt</span>(<span class="ident">f</span>),
             <span class="ident">PeerError</span>::<span class="ident">Malicious</span>(<span class="ident">cause</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">cause</span>.<span class="ident">fmt</span>(<span class="ident">f</span>),
             <span class="ident">PeerError</span>::<span class="ident">ConnectionClosed</span> <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Ok</span>(()),
+            <span class="ident">PeerError</span>::<span class="ident">Unexpected</span>(<span class="ident">cause</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="ident">cause</span>.<span class="ident">fmt</span>(<span class="ident">f</span>),
         }
     }
 }
