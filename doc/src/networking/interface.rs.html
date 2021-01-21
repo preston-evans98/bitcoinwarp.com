@@ -42,6 +42,9 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="kw">use</span> <span class="ident">shared</span>::{<span class="ident">u256</span>, <span class="ident">Block</span>, <span class="ident">BlockHeader</span>, <span class="ident">EncapsulatedAddr</span>, <span class="ident">Transaction</span>};
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">collections</span>::<span class="ident">HashSet</span>;
@@ -51,6 +54,9 @@
     <span class="ident">Peers</span>,
     <span class="doccomment">/// Requests all blocks with provided hashes</span>
     <span class="ident">BlocksByHash</span>(<span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>),
+    <span class="comment">// /// Requests a single block when the requester believes itself to be in sync.</span>
+    <span class="comment">// /// Allows us to use cmpctblck to save bandwidth</span>
+    <span class="comment">// NextBlock,</span>
     <span class="doccomment">/// Requests all transactions with provided hashes</span>
     <span class="ident">TransactionsByHash</span>(<span class="ident">HashSet</span><span class="op">&lt;</span><span class="ident">u256</span><span class="op">&gt;</span>),
     <span class="doccomment">/// Requests headers starting with the first header in the vec. If max_responses is not provided, the Service will attempt to return every header up to the current tip.</span>
