@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `warpd/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `warpd/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
-<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../warpd/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
+<link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../warpd/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
@@ -152,86 +152,140 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
 </pre><div class="example-wrap"><pre class="rust ">
+<span class="doccomment">//! # Update 2021-03-25 - Moved to Zebra BTC</span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! As of March 2021, we&#39;re exploring building Bitcoin Warp from a fork of Zcash Zebra. For now, you can follow our progress [here](https://github.com/preston-evans98/zebra-btc). The original docs for Bitcoin warp are visible below</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! # Welcome to Bitcoin Warp</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! Bitcoin Warp is an ongoing implementation of a new [Bitcoin](http://www.bitcoinwarp.com/bitcoin.pdf) client in Rust. You can track our progress on [Github](https://github.com/preston-evans98/bitcoin-warp) or view our docs at [bitcoinwarp.com](bitcoinwarp.com).</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! Bitcoin Warp is a work in progress.  It is developed as a collection of </span>
+<span class="doccomment">//! Bitcoin Warp is a work in progress. It is developed as a collection of</span>
 <span class="doccomment">//! libraries implementing the different components of a Bitcoin node (such as networking, cryptography, shared primitives, etc.), and a `warpd` binary which uses them. Expect the structure of this project to change very frequently up until the 1.0 release.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! Almost all of our work so far has gone into `networking`, an implementation of the Bitcoin Wire Protocol</span>
 <span class="doccomment">//! inspired by [Zcash Zebra&#39;s](https://doc.zebra.zfnd.org) new networking stack. However, many of the core components of the `shared` library have also begun to stabilize.</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ## Why Another Bitcoin Implementation?</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! There are at least seven separate implementations of the Bitcoin protocol. Why do we need another one?</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ### 1. Bitcoin Core has about 98% Market Share</span>
-<span class="doccomment">//! Core has earned its place at the top. It&#39;s battle-tested, actively maintained, and blazing fast. But too much concentration isn&#39;t a good thing. </span>
-<span class="doccomment">//! 1. **It places an undue burden on the core devs.** Since a bug in Core could effectively bring down the entire Bitcoin network, the devs have to be perfect. They&#39;ve done remarkably well so far, but its unreasonable to expect that they&#39;ll keep it up forever. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Core has earned its place at the top. It&#39;s battle-tested, actively maintained, and blazing fast. But too much concentration isn&#39;t a good thing.</span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! 1. **It places an undue burden on the core devs.** Since a bug in Core could effectively bring down the entire Bitcoin network, the devs have to be perfect. They&#39;ve done remarkably well so far, but its unreasonable to expect that they&#39;ll keep it up forever.</span>
 <span class="doccomment">//! 1. **It slows innovation.** In Ethereum, both Geth and Parity (and now Nethermind) can try out new features. If a feature doesn&#39;t work out and part of the network crashes, it&#39;s bad but not catastrophic. Bitcoin Core doesn&#39;t have that luxury. They need to maintain 100% uptime, or Bitcoin dies. In addition, potential contributors need to be advanced C++ programmers willing to dive into a highly complex codebase. Obviously, this somewhat limits the pool of contributors.</span>
-<span class="doccomment">//! 1. **It leaves us vulnerable to supply chain attacks**. As Bitcoin grows to trillion dollar market cap and beyond, it may very well be targeted by national intelligence services. Expect to see a variety of attacks on Bitcoin Core&#39;s supply chain - from tampering with dev machines to stealing release keys. Heck, someone might even try to mess with C++ compilers. In any case, *Vires in Numeris.*</span>
+<span class="doccomment">//! 1. **It leaves us vulnerable to supply chain attacks**. As Bitcoin grows to trillion dollar market cap and beyond, it may very well be targeted by national intelligence services. Expect to see a variety of attacks on Bitcoin Core&#39;s supply chain - from tampering with dev machines to stealing release keys. Heck, someone might even try to mess with C++ compilers. In any case, _Vires in Numeris._</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ### 2. There is no Viable Alternative Client</span>
-<span class="doccomment">//! 1. **Sync times for the next best client are [3x longer](https://blog.lopp.net/bitcoin-node-performance-sync-tests/) than Bitcoin Core.** Syncing Core is already painful enough. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! 1. **Sync times for the next best client are [3x longer](https://blog.lopp.net/bitcoin-node-performance-sync-tests/) than Bitcoin Core.** Syncing Core is already painful enough.</span>
 <span class="doccomment">//! 1. **Most Alt-Clients are vulnerable to supply chain attacks**. The best performing Alt-Client (Bcoin) is written in Node JS. With NPM. Yikes. The next best (GoCoin) is also vulnerable (lock files anyone?). This is a common pattern. Most languages don&#39;t take supply chain attacks seriously, and it shows.</span>
-<span class="doccomment">//! 1. **Alt-Clients have restrictive licenses**. GoCoin, Parity - I&#39;m looking at you. </span>
+<span class="doccomment">//! 1. **Alt-Clients have restrictive licenses**. GoCoin, Parity - I&#39;m looking at you.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ## What Will Make Bitcoin Warp Different?</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! 1. **Performance.**. Unlike clients written in Go (or C#, or JS, or Python, or...) there&#39;s no reason Bitcoin Warp needs to be slower than Bitcoin Core. Hopefully, it will be even faster.</span>
-<span class="doccomment">//! 1. **Security.** Bitcoin Warp will be (almost) completely immune to memory safety bugs. It will have a secure supply chain. </span>
-<span class="doccomment">//! 1. **Simplicity.** We expect Bitcoin Warp to be significantly smaller (in terms of SLOC) than Bitcoin Core. </span>
+<span class="doccomment">//! 1. **Security.** Bitcoin Warp will be (almost) completely immune to memory safety bugs. It will have a secure supply chain.</span>
+<span class="doccomment">//! 1. **Simplicity.** We expect Bitcoin Warp to be significantly smaller (in terms of SLOC) than Bitcoin Core.</span>
 <span class="doccomment">//! 1. **Free as in Freedom.** And Free as in Beer. Bitcoin Warp is open source and MIT licensed.</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! How is all of that possible? Mostly, it comes down to writing in Rust.  In case you&#39;re not familiar, Rust is a systems programming language that combines blazing speed with complete memory safety (assuming you don&#39;t need `unsafe` features). It doesn&#39;t have garbage collection, so it produces binaries that run just as fast as `C` programs, and don&#39;t take up any more space.  It has a package manager that provides reasonable protections against supply chain attacks (lock files with hashes are a big plus). It also has a bunch of neat features like iterators, closures, generics, and macros. </span>
+<span class="doccomment">//! How is all of that possible? Mostly, it comes down to writing in Rust. In case you&#39;re not familiar, Rust is a systems programming language that combines blazing speed with complete memory safety (assuming you don&#39;t need `unsafe` features). It doesn&#39;t have garbage collection, so it produces binaries that run just as fast as `C` programs, and don&#39;t take up any more space. It has a package manager that provides reasonable protections against supply chain attacks (lock files with hashes are a big plus). It also has a bunch of neat features like iterators, closures, generics, and macros.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! This means that if we do our job, Bitcoin Warp can be just as fast as a C/C++ Bitcoin implementation like Bitcoin Core (or even faster) and we can write a lot less code. That means easier maintenance, faster iteration, and (hopefully) more innovation.</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! # Roadmap </span>
-<span class="doccomment">//! Implementation of Bitcoin Warp is split into several phases with accompanying milestones. </span>
+<span class="doccomment">//! # Roadmap</span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Implementation of Bitcoin Warp is split into several phases with accompanying milestones.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ## Pre-Alpha</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ### 1. Basic Networking (Feature Complete - in QA)</span>
-<span class="doccomment">//! Implement the Bitcoin wire protocol. Allows messages to be exchanged with nodes running Bitcoin Core to allow fetching blocks etc. during development. Does not include peer management, mempool, etc. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Implement the Bitcoin wire protocol. Allows messages to be exchanged with nodes running Bitcoin Core to allow fetching blocks etc. during development. Does not include peer management, mempool, etc.</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ### 2. Basic Validation (Implementation In Progress)</span>
-<span class="doccomment">//! Implement the basic logic to validate blocks and transactions. This includes things like checking signatures and block hashes. Partially dependent on 3. This implementation will be unoptimized, and may not include changes introduced into Bitcoin via soft fork. These changes will be added in the next phase. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Implement the basic logic to validate blocks and transactions. This includes things like checking signatures and block hashes. Partially dependent on 3. This implementation will be unoptimized, and may not include changes introduced into Bitcoin via soft fork. These changes will be added in the next phase.</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ### 3. Basic Database</span>
-<span class="doccomment">//! Implement a minimum viable database layer to store blocks and UTXOs. Likely LevelDB initially. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Implement a minimum viable database layer to store blocks and UTXOs. Likely LevelDB initially.</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ### 4. Basic Interface</span>
-<span class="doccomment">//! Implement config files and simple CLI. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Implement config files and simple CLI.</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ### 5. Advanced Networking (Implementation in Progress)</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! Implement a connection manager. Accomplishment of this milestone marks the client ready for Alpha Launch.</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! </span>
 <span class="doccomment">//! ## Alpha</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ### Advanced Validation</span>
-<span class="doccomment">//! Implement soft-fork features like SegWit and TapRoot. Optimize. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Implement soft-fork features like SegWit and TapRoot. Optimize.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ### Advanced Database (Optional)</span>
-<span class="doccomment">//! Optimize the database. Explore alternatives to LevelDB, including potentially designing a Bitcoin-specific DB engine. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Optimize the database. Explore alternatives to LevelDB, including potentially designing a Bitcoin-specific DB engine.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ### Production Level Integration Testing</span>
-<span class="doccomment">//! &#39;Nuff Said. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! &#39;Nuff Said.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ## Beta</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! ### Advanced Interface</span>
-<span class="doccomment">//! Electron + Typescript = Better UX. </span>
+<span class="doccomment">//! </span>
+<span class="doccomment">//! Electron + Typescript = Better UX.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ### State of the Art Networking</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! Explore using libP2p, or implementing a new networking protocol based on more recent academic literature. This might be unnecessary. It might also be fun. In any case, we definitely need authenticated messaging.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! ...</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! That seems like more than enough to get started. If we make it this far, we should be able to get funding for an audit and launch this thing for real. </span>
+<span class="doccomment">//! That seems like more than enough to get started. If we make it this far, we should be able to get funding for an audit and launch this thing for real.</span>
 <span class="doccomment">//! </span>
-<span class="doccomment">//! </span>
-<span class="doccomment">//! **N.B.** There&#39;s nothing about wallet functionality on the roadmap. That&#39;s intentional. ***You shouldn&#39;t store BTC on a hot device unless you really know what you&#39;re doing***, so having a wallet on your node is asking for trouble. We won&#39;t add this feature unless there&#39;s a very compelling need to do so. </span>
+<span class="doccomment">//! **N.B.** There&#39;s nothing about wallet functionality on the roadmap. That&#39;s intentional. **_You shouldn&#39;t store BTC on a hot device unless you really know what you&#39;re doing_**, so having a wallet on your node is asking for trouble. We won&#39;t add this feature unless there&#39;s a very compelling need to do so.</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! # Getting Started</span>
+<span class="doccomment">//! </span>
 <span class="doccomment">//! 1. [Install the Rust Compiler](https://www.rust-lang.org/tools/install)</span>
 <span class="doccomment">//! 1. Clone our git repository `git clone https://github.com/preston-evans98/bitcoin-warp.git`</span>
 <span class="doccomment">//! 1. `cd bitcoin-warp`</span>
-<span class="doccomment">//! 1. Run `cargo test --all` to build the client and run all unit tests. </span>
-<span class="doccomment">//! 1. (Optional) `cargo run` to see the experimental warp shell in action. This shell lets you connect to any other client running Bitcoin and send and receive messages from the command line. Note: This is very much a work in progress. It depends on some functionality from the connection manager, which won&#39;t be fully implemented until the end of the Alpha stage. </span>
+<span class="doccomment">//! 1. Run `cargo test --all` to build the client and run all unit tests.</span>
+<span class="doccomment">//! 1. (Optional) `cargo run` to see the experimental warp shell in action. This shell lets you connect to any other client running Bitcoin and send and receive messages from the command line. Note: This is very much a work in progress. It depends on some functionality from the connection manager, which won&#39;t be fully implemented until the end of the Alpha stage.</span>
 <span class="comment">// //! ![BitcoinWarp Logo](/Users/prestonevans/Downloads/BitcoinWarpLogoMock.png)</span>
 
 <span class="kw">mod</span> <span class="ident">shell</span>;
@@ -244,7 +298,7 @@
 <span class="doccomment">/// The Bitcoin Warp Daemon</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Warpd</span> {
-    <span class="kw">pub</span> <span class="ident">config</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">config</span>: <span class="ident">Config</span>,
     <span class="ident">conn_man</span>: <span class="ident">ConnectionManager</span>,
 }
 
@@ -257,18 +311,18 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">ConnectionManager</span> {
         <span class="ident">ConnectionManager</span> { <span class="ident">peers</span>: <span class="ident">Vec</span>::<span class="ident">new</span>() }
     }
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">peer</span> <span class="op">=</span> <span class="ident">Peer</span>::<span class="ident">at_address</span>(<span class="self">self</span>.<span class="ident">num_peers</span>(), <span class="ident">addr</span>, <span class="ident">config</span>.<span class="ident">clone</span>()).<span class="ident">await</span><span class="question-mark">?</span>;
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">add</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">addr</span>: <span class="ident">SocketAddr</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">peer</span> <span class="op">=</span> <span class="ident">Peer</span>::<span class="ident">at_address</span>(<span class="ident">addr</span>, <span class="ident">config</span>.<span class="ident">clone</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">push</span>(<span class="ident">peer</span>);
         <span class="prelude-val">Ok</span>(())
     }
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">accept</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">port</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">Config</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">accept</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">port</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">addr</span> <span class="op">=</span> <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;127.0.0.1:{}&quot;</span>, <span class="ident">port</span>);
         <span class="kw">let</span> <span class="ident">listener</span> <span class="op">=</span> <span class="ident">tokio</span>::<span class="ident">net</span>::<span class="ident">TcpListener</span>::<span class="ident">bind</span>(<span class="kw-2">&amp;</span><span class="ident">addr</span>)
-            .<span class="ident">await</span>
+            .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="kw-2">&amp;</span><span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Could not create listener on {}&quot;</span>, <span class="ident">addr</span>));
-        <span class="kw">let</span> (<span class="ident">connection</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">listener</span>.<span class="ident">accept</span>().<span class="ident">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">peer</span> <span class="op">=</span> <span class="ident">Peer</span>::<span class="ident">from_connection</span>(<span class="self">self</span>.<span class="ident">num_peers</span>(), <span class="ident">connection</span>, <span class="ident">config</span>.<span class="ident">clone</span>()).<span class="ident">await</span>;
+        <span class="kw">let</span> (<span class="ident">connection</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">listener</span>.<span class="ident">accept</span>().<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">peer</span> <span class="op">=</span> <span class="ident">Peer</span>::<span class="ident">from_connection</span>(<span class="ident">connection</span>, <span class="ident">config</span>.<span class="ident">clone</span>()).<span class="kw">await</span>;
         <span class="self">self</span>.<span class="ident">peers</span>.<span class="ident">push</span>(<span class="ident">peer</span>);
         <span class="prelude-val">Ok</span>(())
     }
@@ -286,22 +340,22 @@
 <span class="kw">impl</span> <span class="ident">Warpd</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Warpd</span> {
         <span class="ident">Warpd</span> {
-            <span class="ident">config</span>: <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">Config</span>::<span class="ident">mainnet</span>()),
+            <span class="ident">config</span>: <span class="ident">Config</span>::<span class="ident">mainnet</span>(),
             <span class="ident">conn_man</span>: <span class="ident">ConnectionManager</span>::<span class="ident">new</span>(),
         }
     }
 
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">add_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">addr</span>: <span class="ident">SocketAddr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">add_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">addr</span>: <span class="ident">SocketAddr</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">conn_man</span>.<span class="ident">num_peers</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_peers</span>() {
             <span class="macro">unimplemented</span><span class="macro">!</span>()
         }
-        <span class="self">self</span>.<span class="ident">conn_man</span>.<span class="ident">add</span>(<span class="ident">addr</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">config</span>).<span class="ident">await</span>
+        <span class="self">self</span>.<span class="ident">conn_man</span>.<span class="ident">add</span>(<span class="ident">addr</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">config</span>).<span class="kw">await</span>
     }
-    <span class="kw">pub</span> <span class="ident">async</span> <span class="kw">fn</span> <span class="ident">accept_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">port</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">accept_peer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">port</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">PeerError</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">conn_man</span>.<span class="ident">num_peers</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="self">self</span>.<span class="ident">config</span>.<span class="ident">max_peers</span>() {
             <span class="macro">unimplemented</span><span class="macro">!</span>()
         }
-        <span class="self">self</span>.<span class="ident">conn_man</span>.<span class="ident">accept</span>(<span class="ident">port</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">config</span>).<span class="ident">await</span>
+        <span class="self">self</span>.<span class="ident">conn_man</span>.<span class="ident">accept</span>(<span class="ident">port</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">config</span>).<span class="kw">await</span>
     }
 }
 </pre></div>
